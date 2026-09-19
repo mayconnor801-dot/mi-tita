@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tata - Pastelería y Repostería Artesanal</title>
+    <!-- Iconos profesionales para botones y tarjetas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f3ed; /* Fondo crema base */
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 1. VIDEO DE FONDO EN BUCLE INFINITO */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* 2. OVERLAY (Capa oscura semitransparente para legibilidad perfecta) */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(30, 20, 22, 0.7); /* Tono oscuro cálido adaptado a la pastelería */
+            z-index: -1;
+        }
+
+        /* CONTENEDOR PRINCIPAL ADAPTABLE */
+        .container {
+            width: 100%;
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* ==========================================
+           SECCIÓN 1: PORTADA (Logo, textos e imagen)
+           ========================================== */
+        .hero-section {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e8c5a0; /* Dorado crema elegante */
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .username {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: #f7dcd4; /* Tono rosa pastel claro */
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #f2ece9;
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+
+        /* Banner o imagen principal */
+        .card-image-box {
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            border: 1px solid rgba(232, 197, 160, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .card-image-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ==========================================
+           SECCIÓN 2: BOTONES / ENLACES FLOTANTES
+           ========================================== */
+        .links-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            background: rgba(45, 30, 35, 0.65); /* Estilo glassmorphism cálido */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 220, 210, 0.2);
+            padding: 14px 20px;
+            border-radius: 40px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .link-btn:hover {
+            background: rgba(232, 197, 160, 0.3);
+            border-color: #e8c5a0;
+            transform: translateY(-2px);
+        }
+
+        .link-btn i {
+            font-size: 1.2rem;
+            position: absolute;
+            left: 20px;
+        }
+
+        .link-btn span {
+            width: 100%;
+            text-align: center;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================
+           SECCIÓN 3: GRID DE PRODUCTOS (3 Columnas)
+           ========================================== */
+        .products-section {
+            width: 100%;
+            background: rgba(35, 25, 28, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(232, 197, 160, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        .products-section h2 {
+            text-align: center;
+            color: #e8c5a0;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Contenedor Grid (3 columnas responsivas) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .product-card {
+            background: rgba(50, 38, 42, 0.6);
+            border: 1px solid rgba(247, 220, 212, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            border-color: #f7dcd4;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            background-color: #2a1f22;
+        }
+
+        .product-info {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #f7dcd4;
+            margin-bottom: 4px;
+        }
+
+        .product-desc {
+            font-size: 0.7rem;
+            color: #dcd0cb;
+            line-height: 1.2;
+        }
+
+        /* Ajuste para pantallas muy pequeñas (celulares estrechos) */
+        @media (max-width: 420px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-img {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VIDEO DE FONDO -->
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="mitita-video.mp4" type="video/mp4">
+        Tu navegador no soporta videos de fondo.
+    </video>
+
+    <!-- Capa oscura para contraste -->
+    <div class="overlay"></div>
+
+    <div class="container">
+        
+        <!-- SECCIÓN 1: PORTADA -->
+        <header class="hero-section">
+            <img src="mitita-logo.jpg" alt="Mi Tata Logo" class="logo">
+            <div class="username">@mitata.ni</div>
+            <p class="description">
+                "En Mi Tata elaboramos repostería y pasteles artesanales con un toque de amor y tradición. Cada creación transforma tus momentos especiales en recuerdos inolvidables."
+            </p>
+            
+            <div class="card-image-box">
+                <img src="mitita-pagina.jpg" alt="Experiencia Mi Tata">
+            </div>
+        </header>
+
+        <!-- SECCIÓN 2: BOTONES DE ACCIÓN -->
+        <main class="links-section">
+            <a href="https://wa.me/50587979633" class="link-btn" target="_blank">
+                <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                <span>WHATSAPP</span>
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=100057206569379" class="link-btn" target="_blank">
+                <i class="fa-brands fa-facebook" style="color: #1877f2;"></i>
+                <span>FACEBOOK</span>
+            </a>
+
+            <a href="https://www.instagram.com/mi_tita_pasteleria/" class="link-btn" target="_blank">
+                <i class="fa-brands fa-instagram" style="color: #e4405f;"></i>
+                <span>INSTAGRAM</span>
+            </a>
+
+            <!-- CAMBIADO: Botón de ubicación / Google Maps en lugar de llamada telefónica -->
+            <a href="https://www.google.com/maps/place/Mi+Tita+Pasteler%C3%ADa+y+Reposter%C3%ADa/@12.1757475,-86.3668094,17z/data=!3m1!4b1!4m6!3m5!1s0x8f715332f7df0407:0xe9bd6aa06b451a71!8m2!3d12.1757475!4d-86.3642345!16s%2Fg%2F11j_tjhgjq?entry=ttu&g_ep=EgoyMDI2MDkxNi4wIKXMDSoASAFQAw%3D%3D" class="link-btn" target="_blank">
+                <i class="fa-solid fa-location-dot" style="color: #e8c5a0;"></i>
+                <span>VER UBICACIÓN</span>
+            </a>
+        </main>
+
+        <!-- SECCIÓN 3: GRID DE PRODUCTOS (3 Columnas) -->
+        <section class="products-section">
+            <h2>Nuestros Productos</h2>
+            
+            <div class="product-grid">
+                <!-- Tarjeta Producto 1 -->
+                <div class="product-card">
+                    <img src="mt-3.jpg" alt="Pasteles" class="product-img">
+                    <div class="product-info">
+                        <div class="product-title">Pasteles</div>
+                        <div class="product-desc">Personalizados para toda ocasión.</div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Producto 2 -->
+                <div class="product-card">
+                    <img src="mt-10.jpg" alt="Mesa de Dulces" class="product-img">
+                    <div class="product-info">
+                        <div class="product-title">Dulces</div>
+                        <div class="product-desc">Postres variados y mesas temáticas.</div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Producto 3 -->
+                <div class="product-card">
+                    <img src="mt-4.jpg" alt="Bocadillos" class="product-img">
+                    <div class="product-info">
+                        <div class="product-title">Bocadillos</div>
+                        <div class="product-desc">Artesanales, dulces y salados.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
